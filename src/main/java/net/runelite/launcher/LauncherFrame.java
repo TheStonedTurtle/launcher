@@ -26,34 +26,54 @@ package net.runelite.launcher;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.geom.RoundRectangle2D;
+import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import javax.swing.JProgressBar;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.launcher.ui.LauncherPanel;
+import net.runelite.launcher.ui.SwingUtil;
 
 @Slf4j
 public class LauncherFrame extends JFrame
 {
-	private final JProgressBar bar;
+	public static final Dimension FRAME_SIZE = new Dimension(200, 275);
+
+	private static final BufferedImage LOGO;
+	static
+	{
+		LOGO = SwingUtil.loadImage("runelite.png");
+	}
+
+	private final LauncherPanel panel;
 
 	public LauncherFrame()
 	{
 		this.setTitle("RuneLite");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setSize(300, 70);
+		this.setSize(FRAME_SIZE);
 		this.setLayout(new BorderLayout());
 		this.setUndecorated(true);
+		this.setIconImage(LOGO);
+		this.setShape(new RoundRectangle2D.Double(0, 0, FRAME_SIZE.width, FRAME_SIZE.height, 15, 15));
 
-		bar = new JProgressBar();
-		bar.setMaximum(100);
-		bar.setStringPainted(true);
-		bar.setSize(300, 70);
-		bar.setPreferredSize(new Dimension(300, 70));
-		bar.setVisible(true);
-		add(bar, BorderLayout.CENTER);
+		panel = new LauncherPanel();
+		this.setContentPane(panel);
 		pack();
 
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
+	}
+
+	void setMessage(final String msg)
+	{
+		panel.getMessageLabel().setText(msg);
+		setSubMessage(null);
+	}
+
+	void setSubMessage(final String msg)
+	{
+		panel.getSubMessageLabel().setText(msg);
 	}
 
 	void progress(String filename, int bytes, int total)
@@ -64,7 +84,11 @@ public class LauncherFrame extends JFrame
 		}
 
 		int percent = (int) (((float) bytes / (float) total) * 100f);
+
+		final JProgressBar bar = panel.getBar();
 		bar.setString(filename + " (" + percent + "%)");
 		bar.setValue(percent);
+
+		setSubMessage("Downloading " + filename + "...");
 	}
 }
