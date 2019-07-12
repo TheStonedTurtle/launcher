@@ -60,6 +60,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import joptsimple.ArgumentAcceptingOptionSpec;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
@@ -77,7 +78,7 @@ public class Launcher
 	private static final File REPO_DIR = new File(RUNELITE_DIR, "repository2");
 	private static final String CLIENT_BOOTSTRAP_URL = "https://static.runelite.net/bootstrap.json";
 	private static final String CLIENT_BOOTSTRAP_SHA256_URL = "https://static.runelite.net/bootstrap.json.sha256";
-	public static final LauncherProperties PROPERTIES = new LauncherProperties();
+	private static final LauncherProperties PROPERTIES = new LauncherProperties();
 	private static final String USER_AGENT = "RuneLite/" + PROPERTIES.getVersion();
 
 	static final String CLIENT_MAIN_CLASS = "net.runelite.client.RuneLite";
@@ -158,11 +159,11 @@ public class Launcher
 
 		try
 		{
-			// Prepare and Create the frame on the EDT thread
+			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 			SwingUtilities.invokeAndWait(() ->
 			{
 				SwingUtil.setTheme();
-				frame = new LauncherFrame();
+				frame = new LauncherFrame(PROPERTIES.getVersion());
 			});
 		}
 		catch (Exception ex)

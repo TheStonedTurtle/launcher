@@ -24,7 +24,6 @@
  */
 package net.runelite.launcher.ui;
 
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -35,7 +34,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import lombok.Getter;
-import net.runelite.launcher.Launcher;
 import net.runelite.launcher.LauncherFrame;
 
 @Getter
@@ -51,11 +49,11 @@ public class LauncherPanel extends JPanel
 	private final JLabel messageLabel = new JLabel("Loading...");
 	private final JLabel subMessageLabel = new JLabel();
 
-	public LauncherPanel()
+	public LauncherPanel(final String versionString)
 	{
 		this.setLayout(new GridBagLayout());
 		this.setPreferredSize(LauncherFrame.FRAME_SIZE);
-		this.setBackground(Color.BLACK);
+		this.setBackground(SwingUtil.ColorScheme.DARKER_GRAY_COLOR);
 
 		final GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -78,7 +76,7 @@ public class LauncherPanel extends JPanel
 		c.gridy++;
 
 		// version
-		final JLabel version = new JLabel("Launcher Version " + Launcher.PROPERTIES.getVersion());
+		final JLabel version = new JLabel("Launcher Version " + versionString);
 		version.setForeground(version.getForeground().darker());
 		version.setFont(FontManager.getRunescapeSmallFont());
 		version.setHorizontalAlignment(JLabel.CENTER);

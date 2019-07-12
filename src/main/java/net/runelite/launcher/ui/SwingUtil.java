@@ -28,10 +28,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Enumeration;
 import javax.imageio.ImageIO;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.FontUIResource;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.launcher.LauncherFrame;
@@ -64,14 +65,21 @@ public class SwingUtil
 		UIManager.put("ProgressBar.verticalSize", new Dimension(12, 10));
 		UIManager.put("ProgressBar.horizontalSize", new Dimension(10, 12));
 		UIManager.put("ProgressBarUI", BasicProgressBarUI.class.getName());
+		UIManager.put("Label.foreground", Color.WHITE);
 
-		try
+		// Set default font to RuneScape UF
+		final FontUIResource f = new FontUIResource(FontManager.getRunescapeFont());
+		final Enumeration keys = UIManager.getDefaults().keys();
+
+		while (keys.hasMoreElements())
 		{
-			UIManager.setLookAndFeel(new SubstanceRuneLiteLookAndFeel());
-		}
-		catch (UnsupportedLookAndFeelException ex)
-		{
-			log.warn("Unable to set look and feel", ex);
+			final Object key = keys.nextElement();
+			final Object value = UIManager.get(key);
+
+			if (value instanceof FontUIResource)
+			{
+				UIManager.put(key, f);
+			}
 		}
 	}
 

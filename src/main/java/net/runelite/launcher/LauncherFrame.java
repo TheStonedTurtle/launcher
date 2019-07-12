@@ -47,7 +47,7 @@ public class LauncherFrame extends JFrame
 
 	private final LauncherPanel panel;
 
-	public LauncherFrame()
+	public LauncherFrame(final String version)
 	{
 		this.setTitle("RuneLite");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -57,7 +57,7 @@ public class LauncherFrame extends JFrame
 		this.setIconImage(LOGO);
 		this.setShape(new RoundRectangle2D.Double(0, 0, FRAME_SIZE.width, FRAME_SIZE.height, 15, 15));
 
-		panel = new LauncherPanel();
+		panel = new LauncherPanel(version);
 		this.setContentPane(panel);
 		pack();
 
