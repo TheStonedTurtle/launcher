@@ -163,7 +163,7 @@ public class Launcher
 			SwingUtilities.invokeAndWait(() ->
 			{
 				SwingUtil.setTheme();
-				frame = new LauncherFrame(PROPERTIES.getVersion());
+				frame = new LauncherFrame(PROPERTIES.getVersion(), 6);
 			});
 		}
 		catch (Exception ex)

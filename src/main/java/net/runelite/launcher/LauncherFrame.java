@@ -29,6 +29,7 @@ import java.awt.Dimension;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 import lombok.extern.slf4j.Slf4j;
@@ -48,9 +49,14 @@ public class LauncherFrame extends JFrame
 	}
 
 	private final LauncherPanel panel;
+	private final int steps;
+	private int currentStep;
 
-	public LauncherFrame(final String version)
+	public LauncherFrame(final String version, final int steps)
 	{
+		this.steps = steps;
+		this.currentStep = 0;
+
 		this.setTitle("RuneLite");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(FRAME_SIZE);
@@ -70,12 +76,21 @@ public class LauncherFrame extends JFrame
 	void setMessage(final String msg)
 	{
 		panel.getMessageLabel().setText(msg);
+		panel.getBar().setMaximum(steps);
+		panel.getBar().setValue(++currentStep);
 		setSubMessage(null);
+
+		panel.revalidate();
+		panel.repaint();
 	}
 
 	void setSubMessage(final String msg)
 	{
-		panel.getSubMessageLabel().setText(msg);
+		final JLabel label = panel.getSubMessageLabel();
+		label.setText(msg);
+
+		label.revalidate();
+		label.repaint();
 	}
 
 	void progress(String filename, int bytes, int total)
@@ -92,6 +107,9 @@ public class LauncherFrame extends JFrame
 		bar.setValue(percent);
 
 		setSubMessage("Downloading " + filename + "...");
+
+		bar.revalidate();
+		bar.repaint();
 	}
 
 	void invalidVersion()
