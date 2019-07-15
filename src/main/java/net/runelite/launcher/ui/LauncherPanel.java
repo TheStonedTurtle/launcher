@@ -24,6 +24,7 @@
  */
 package net.runelite.launcher.ui;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -77,7 +78,7 @@ public class LauncherPanel extends JPanel
 
 		// version
 		final JLabel version = new JLabel("Launcher Version " + versionString);
-		version.setForeground(version.getForeground().darker());
+		version.setForeground(Color.LIGHT_GRAY);
 		version.setFont(FontManager.getRunescapeSmallFont());
 		version.setHorizontalAlignment(JLabel.CENTER);
 		this.add(version, c);

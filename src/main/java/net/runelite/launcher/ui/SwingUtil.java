@@ -48,7 +48,7 @@ public class SwingUtil
 		/* The orange color used for the branding's accents, with lowered opacity */
 		public static final Color BRAND_ORANGE_TRANSPARENT = new Color(220, 138, 0, 120);
 
-		public static final Color DARKER_GRAY_COLOR = Color.PINK;
+		public static final Color DARKER_GRAY_COLOR = new Color(30, 30, 30);
 	}
 
 	/**
@@ -56,7 +56,6 @@ public class SwingUtil
 	 */
 	public static void setTheme()
 	{
-		UIManager.put("Panel.background", ColorScheme.DARKER_GRAY_COLOR);
 		UIManager.put("ProgressBar.background", ColorScheme.BRAND_ORANGE_TRANSPARENT.darker());
 		UIManager.put("ProgressBar.foreground", ColorScheme.BRAND_ORANGE);
 		UIManager.put("ProgressBar.selectionBackground", ColorScheme.BRAND_ORANGE);
@@ -65,6 +64,9 @@ public class SwingUtil
 		UIManager.put("ProgressBar.verticalSize", new Dimension(12, 10));
 		UIManager.put("ProgressBar.horizontalSize", new Dimension(10, 12));
 		UIManager.put("ProgressBarUI", BasicProgressBarUI.class.getName());
+		UIManager.put("Panel.background", ColorScheme.DARKER_GRAY_COLOR);
+		UIManager.put("Panel.foreground", Color.WHITE);
+		UIManager.put("Label.background", ColorScheme.DARKER_GRAY_COLOR);
 		UIManager.put("Label.foreground", Color.WHITE);
 
 		// Set default font to RuneScape UF
