@@ -189,8 +189,7 @@ public class Launcher
 		}
 
 		frame.setMessage("Checking launcher version...");
-		//final String[] versions = bootstrap.getAcceptedLauncherVersions();
-		final String[] versions = new String[]{"1.6.2-SNAPSHOT"};
+		final String[] versions = bootstrap.getAcceptedLauncherVersions();
 		final String installedVersion = PROPERTIES.getVersion();
 		if (versions != null && installedVersion != null)
 		{
