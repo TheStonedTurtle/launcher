@@ -104,13 +104,12 @@ public class LauncherFrame extends JFrame
 
 		final JProgressBar bar = panel.getBar();
 		bar.setMaximum(100);
-		bar.setString(filename + " (" + percent + "%)");
 		bar.setValue(percent);
 
 		setSubMessage("Downloading " + filename + "...");
 
-		bar.revalidate();
-		bar.repaint();
+		panel.revalidate();
+		panel.repaint();
 	}
 
 	void invalidVersion()
