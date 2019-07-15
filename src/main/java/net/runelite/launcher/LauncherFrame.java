@@ -103,6 +103,7 @@ public class LauncherFrame extends JFrame
 		int percent = (int) (((float) bytes / (float) total) * 100f);
 
 		final JProgressBar bar = panel.getBar();
+		bar.setMaximum(100);
 		bar.setString(filename + " (" + percent + "%)");
 		bar.setValue(percent);
 
