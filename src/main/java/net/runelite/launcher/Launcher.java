@@ -169,6 +169,7 @@ public class Launcher
 		catch (Exception ex)
 		{
 			log.warn("Unable to create launcher frame", ex);
+			System.exit(1);
 		}
 
 		frame.setMessage("Downloading Bootstrap...");
