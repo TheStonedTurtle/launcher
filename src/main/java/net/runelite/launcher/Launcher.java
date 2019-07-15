@@ -188,6 +188,37 @@ public class Launcher
 			return;
 		}
 
+		frame.setMessage("Checking launcher version...");
+		//final String[] versions = bootstrap.getAcceptedLauncherVersions();
+		final String[] versions = new String[]{"1.6.2-SNAPSHOT"};
+		final String installedVersion = PROPERTIES.getVersion();
+		if (versions != null && installedVersion != null)
+		{
+			boolean contains = false;
+			for (final String version : versions)
+			{
+				if (installedVersion.equalsIgnoreCase(version))
+				{
+					contains = true;
+					break;
+				}
+			}
+
+			if (!contains)
+			{
+				try
+				{
+					SwingUtilities.invokeAndWait(frame::invalidVersion);
+					System.exit(0);
+				}
+				catch (Exception ex)
+				{
+					log.warn("Invalid launcher version. Error create invalid version dialog box.", ex);
+					System.exit(1);
+				}
+			}
+		}
+
 		// update packr vmargs
 		PackrConfig.updateLauncherArgs(bootstrap);
 

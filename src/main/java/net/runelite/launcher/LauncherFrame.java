@@ -29,10 +29,12 @@ import java.awt.Dimension;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.launcher.ui.LauncherPanel;
 import net.runelite.launcher.ui.SwingUtil;
+import net.runelite.launcher.util.LinkBrowser;
 
 @Slf4j
 public class LauncherFrame extends JFrame
@@ -90,5 +92,27 @@ public class LauncherFrame extends JFrame
 		bar.setValue(percent);
 
 		setSubMessage("Downloading " + filename + "...");
+	}
+
+	void invalidVersion()
+	{
+		final String message = "<html><div style='text-align: center;'>" +
+			"Your RuneLite launcher version is outdated<br/>" +
+			"Please visit runelite.net to download the updated version</div></html>";
+		final Object[] buttons = new Object[]{"Visit runelite.net", "Close client"};
+
+		final int result = JOptionPane.showOptionDialog(panel,
+			message,
+			"Outdated launcher",
+			JOptionPane.YES_NO_OPTION,
+			JOptionPane.ERROR_MESSAGE,
+			null,
+			buttons,
+			buttons[1]);
+
+		if (result == JOptionPane.YES_OPTION)
+		{
+			LinkBrowser.browse("https://runelite.net");
+		}
 	}
 }

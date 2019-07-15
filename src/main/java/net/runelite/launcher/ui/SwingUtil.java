@@ -68,6 +68,8 @@ public class SwingUtil
 		UIManager.put("Panel.foreground", Color.WHITE);
 		UIManager.put("Label.background", ColorScheme.DARKER_GRAY_COLOR);
 		UIManager.put("Label.foreground", Color.WHITE);
+		UIManager.put("OptionPane.background", ColorScheme.DARKER_GRAY_COLOR);
+		UIManager.put("OptionPane.messageForeground", Color.WHITE);
 
 		// Set default font to RuneScape UF
 		final FontUIResource f = new FontUIResource(FontManager.getRunescapeFont());

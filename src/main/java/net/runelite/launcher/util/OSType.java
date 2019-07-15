@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2018, arlyon <arlyon@me.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,19 +22,46 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.launcher.beans;
+package net.runelite.launcher.util;
 
-import lombok.Data;
-
-@Data
-public class Bootstrap
+/**
+ * An enum and util function to determine the OS.
+ */
+public enum OSType
 {
-	private String[] clientJvmArguments;
-	private String[] clientJvm9Arguments;
-	private Artifact[] artifacts;
+	Windows,
+	MacOS,
+	Linux,
+	Other;
 
-	private String[] launcherWindowsArguments;
-	private String[] launcherMacArguments;
-	private String[] launcherArguments;
-	private String[] acceptedLauncherVersions;
+	private final static OSType OS_TYPE;
+
+	static
+	{
+		final String OS = System
+			.getProperty("os.name", "generic")
+			.toLowerCase();
+
+		if ((OS.contains("mac")) || (OS.contains("darwin")))
+		{
+			OS_TYPE = OSType.MacOS;
+		}
+		else if (OS.contains("win"))
+		{
+			OS_TYPE = OSType.Windows;
+		}
+		else if (OS.contains("nux"))
+		{
+			OS_TYPE = OSType.Linux;
+		}
+		else
+		{
+			OS_TYPE = OSType.Other;
+		}
+	}
+
+	public static OSType getOSType()
+	{
+		return OS_TYPE;
+	}
 }
